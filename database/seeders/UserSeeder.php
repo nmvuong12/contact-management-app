@@ -8,6 +8,7 @@ use Faker\Factory as Faker;
 use Illuminate\Support\Facades\Hash;
 
 use App\Models\User;
+use App\Models\Staff;
 
 class UserSeeder extends Seeder
 {
@@ -21,16 +22,28 @@ class UserSeeder extends Seeder
         $faker = Faker::create('vi_VN'); // Sử dụng Faker cho ngôn ngữ tiếng Việt
 
         // Lấy tất cả department_id từ bảng staff (khóa ngoại staff_id)
-        $staffIds = DB::table('staff')->pluck('id')->toArray(); 
-
-        // Tạo 20 người dùng
+        $staffIds = Staff::pluck('id')->toArray(); 
+        
+        // Tạo 30 người dùng
         for ($i = 0; $i < 30; $i++) {
+            // Xác định role ngẫu nhiên
+            $role = $faker->randomElement(['staff', 'guest', 'admin']);
+            $staffId =null;
+            $staffName = $faker->name;
+            // Nếu role là staff, lấy một staff_id ngẫu nhiên từ bảng staff
+            if ($role === 'staff' && count($staffIds) > 0)
+            {
+                $staffId = $faker->randomElement($staffIds);
+                $staff = Staff::findOrFail($staffId);
+                $staffName = $staff->name;
+                $staffIds = array_diff($staffIds, [$staffId]);
+            }
             User::create([
-                'name' => $faker->name, // Tên người dùng
+                'name' => $staffName, // Tên người dùng
                 'email' => $faker->unique()->email, // Email duy nhất
                 'password' => Hash::make('123456'), // Mật khẩu đã được mã hóa
-                'staff_id' => $faker->randomElement($staffIds), // Chọn ngẫu nhiên staff_id từ bảng staff
-                'role' => $faker->randomElement(['admin', 'staff', 'guest']), // Vai trò ngẫu nhiên
+                'staff_id' => $staffId, // Chỉ gán staff_id nếu role là staff
+                'role' => $role, // Vai trò ngẫu nhiên
             ]);
         }
     }

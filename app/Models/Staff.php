@@ -9,11 +9,11 @@ class Staff extends Model
     //
     public function user()
     {
-        return $this->belongsTo(User::class, 'staff_id', 'id');
+        return $this->belongsTo(User::class);
     }
 
     public function department()
     {
-        return $this->belongsTo(Department::class, 'department_id', 'id');
+        return $this->belongsTo(Department::class);
     }
 }

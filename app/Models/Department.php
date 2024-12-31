@@ -9,6 +9,6 @@ class Department extends Model
     //
     public function staff()
     {
-        return $this->hasMany(Staff::class, 'department_id', 'id');
+        return $this->hasMany(Staff::class);
     }
 }
