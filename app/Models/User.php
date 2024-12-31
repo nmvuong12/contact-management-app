@@ -39,9 +39,13 @@ class User extends Authenticatable
      *
      * @return array<string, string>
      */
-    public function staff()
+    public function staff():HasOne
     {
         return $this->hasOne(Staff::class);
+    }
+    public function hasRole($role)
+    {
+        return $this->role === $role;
     }
     protected function casts(): array
     {
