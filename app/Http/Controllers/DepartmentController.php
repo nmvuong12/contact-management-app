@@ -94,6 +94,12 @@ class DepartmentController extends Controller
 
         return view('dashboard', compact('department'));
     }
+    public function showforAdmin($id)
+    {
+        $department = Department::findOrFail($id);
+
+        return view('admin.department.show', compact('department'));
+    }
     /**
      * Show the form for editing the specified resource.
      */
@@ -132,5 +138,10 @@ class DepartmentController extends Controller
     public function destroy(string $id)
     {
         //
+        $department = Department::findOrFail($id);
+
+        $department->delete();
+
+        return redirect()->route('admin.department')->with('success', 'Xóa thành công!');
     }
 }

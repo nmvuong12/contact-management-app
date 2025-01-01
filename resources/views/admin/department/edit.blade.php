@@ -93,6 +93,9 @@
 
                 <!-- Nút lưu -->
                 <div class="flex items-center justify-between">
+                        <a href="{{ route('admin.department') }}" class="inline-block bg-blue-600 text-black px-4 py-2 rounded-md hover:bg-blue-700">
+                            <-- Về danh sách
+                        </a>
                     <x-primary-button class="bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500">
                         {{ __('Lưu thay đổi') }}
                     </x-primary-button>
