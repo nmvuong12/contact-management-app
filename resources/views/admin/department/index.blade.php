@@ -47,7 +47,7 @@
                                         <button @click="openDetailModal({{ $department }})" class="text-blue-600 hover:text-blue-800 px-2 py-1 rounded-md">Chi tiết</button>
                                         
                                         <!-- Edit Button -->
-                                        <a href="#" class="text-yellow-600 hover:text-yellow-800 px-2 py-1 rounded-md">Chỉnh sửa</a>
+                                        <a href="{{route('admin.department.edit', $department->id)}}" class="text-yellow-600 hover:text-yellow-800 px-2 py-1 rounded-md">Chỉnh sửa</a>
                                         
                                         <!-- Delete Button -->
                                         <button @click="openDeleteModal({{ $department->id }})" class="text-red-600 hover:text-red-800 px-2 py-1 rounded-md">Xóa</button>

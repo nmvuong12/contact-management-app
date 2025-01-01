@@ -100,6 +100,9 @@ class DepartmentController extends Controller
     public function edit(string $id)
     {
         //
+        $department = Department::findOrFail($id);
+
+        return view('admin.department.edit', compact('department'));
     }
 
     /**
@@ -108,6 +111,19 @@ class DepartmentController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $department = Department::findOrFail($id);
+
+        $department->update([
+            'name' => $request->name,
+            'code' => $request->code,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'website' => $request->website,
+            'address' => $request->address,
+
+        ]);
+
+        return redirect()->route('admin.department')->with('success', 'Cập nhật thành công!');
     }
 
     /**

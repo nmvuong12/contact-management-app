@@ -39,6 +39,8 @@ Route::middleware([CheckRole::class . ':admin'])->group(function () {
     Route::get('/department', [DepartmentController::class, 'indexAdmin'])->name('admin.department');
     Route::get('/department/create', [DepartmentController::class, 'create'])->name('admin.department.create');
     Route::post('/department/store', [DepartmentController::class, 'store'])->name('admin.department.store');
+    Route::get('/department/edit/{id}', [DepartmentController::class, 'edit'])->name('admin.department.edit');
+    Route::patch('/department/update/{id}', [DepartmentController::class, 'update'])->name('admin.department.update');
     });
 
 // Route::middleware('auth')->group(function () {
