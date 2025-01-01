@@ -50,7 +50,6 @@
                         @foreach ($staffMembers as $staff)
                             <div class="bg-gray-100 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
                                 <h4 class="font-semibold text-gray-800">{{ $staff->name }}</h4>
-                                <p class="text-gray-600">{{ $staff->position }}</p>
                                 <p class="text-gray-500 text-sm">{{ $staff->email }}</p>
                                 <a href="{{route('guest.showStaff', $staff->id)}}" 
                                    class="mt-4 inline-block text-blue-500 hover:text-blue-700 font-medium">

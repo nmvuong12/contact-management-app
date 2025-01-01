@@ -13,7 +13,11 @@ Route::get('/', function () {
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+//
 Route::middleware([CheckRole::class . ':guest'])->group(function () {
     Route::get('/home', [DepartmentController::class, 'index'])->name('guest.index');
     Route::get('/show/{id}', [DepartmentController::class, 'showforGuest'])->name('guest.showDepartment');
@@ -22,12 +26,10 @@ Route::middleware([CheckRole::class . ':guest'])->group(function () {
     });
 
 Route::middleware([CheckRole::class . ':staff'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/dashboard',[StaffController::class, 'showforStaff'])->name('dashboard');
+    Route::get('/edit/{id}',[StaffController::class, 'edit'])->name('staff.edit');
+    Route::patch('/update/{id}',[StaffController::class, 'update'])->name('staff.update');
+    
     });
 
 Route::middleware([CheckRole::class . ':admin'])->group(function () {

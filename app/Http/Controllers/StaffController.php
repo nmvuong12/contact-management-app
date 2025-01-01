@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Department;
 use App\Models\Staff;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StaffController extends Controller
 {
@@ -63,9 +64,20 @@ class StaffController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
+    public function showforStaff()
+    {
+        $staff = Auth::user()->staff;
+
+        $department = $staff->department;
+
+        return view('dashboard', compact('staff', 'department'));
+    }
     public function edit(string $id)
     {
         //
+        $staff = Staff::findOrFail($id);
+
+        return view('staff.edit', compact('staff'));
     }
 
     /**
@@ -74,6 +86,11 @@ class StaffController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $staff = Staff::findOrFail($id);
+        $staff->update($request->all());
+        
+        $staff->user->update(['name' => $request->name]);
+        return redirect()->route('dashboard')->with('success', 'Book updated successfully!');
     }
 
     /**

@@ -7,9 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 class Staff extends Model
 {
     //
+    protected $fillable = [
+        'name',
+        'title',
+        'academic_rank',
+        'degree',
+        'phone',
+        'email',
+    ];
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasOne(User::class);
     }
 
     public function department()

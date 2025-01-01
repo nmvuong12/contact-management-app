@@ -46,7 +46,7 @@ class DepartmentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function showforGuest(Request $request, string $id)
+    public function showforGuest(string $id)
     {
         //
         $department = Department::findOrFail($id);
@@ -59,7 +59,12 @@ class DepartmentController extends Controller
         $staffMembers = $department->staff()->paginate(5);
         return view('guest.showDepartment', compact('department', 'staffMembers'));
     }
+    public function showforStaff($id)
+    {
+        $department = Department::findOrFail($id);
 
+        return view('dashboard', compact('department'));
+    }
     /**
      * Show the form for editing the specified resource.
      */
