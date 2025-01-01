@@ -26,6 +26,23 @@ class DepartmentController extends Controller
 
         return view('guest.index', compact('departments'));
     }
+    public function indexAdmin(Request $request)
+    {
+        $name = $request->input('name');
+        $code = $request->input('code');
+        //
+        $departments = Department::query()
+        ->when($name, function ($query, $name) {
+            return $query->where('name', 'like', '%' . $name . '%');
+        })
+        ->when($code, function ($query, $code) {
+            return $query->where('code', 'like', '%' . $code . '%');
+        })
+        ->orderBy('id', 'desc')
+        ->paginate(6);
+
+        return view('admin.department.index', compact('departments'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -33,6 +50,7 @@ class DepartmentController extends Controller
     public function create()
     {
         //
+        return view('admin.department.create');
     }
 
     /**
@@ -41,6 +59,17 @@ class DepartmentController extends Controller
     public function store(Request $request)
     {
         //
+        $department = Department::create([
+            'name' => $request->name,
+            'code' => $request->code,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'website' => $request->website,
+            'address' => $request->address,
+
+        ]);
+
+        return redirect()->route('admin.department')->with('success', 'Department created successfully!');
     }
 
     /**

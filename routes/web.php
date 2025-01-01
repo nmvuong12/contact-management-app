@@ -33,9 +33,12 @@ Route::middleware([CheckRole::class . ':staff'])->group(function () {
     });
 
 Route::middleware([CheckRole::class . ':admin'])->group(function () {
-    Route::get('/admin', function () {
+    Route::get('/home', function () {
         return view('admin.index');
     })->name('admin.index');
+    Route::get('/department', [DepartmentController::class, 'indexAdmin'])->name('admin.department');
+    Route::get('/department/create', [DepartmentController::class, 'create'])->name('admin.department.create');
+    Route::post('/department/store', [DepartmentController::class, 'store'])->name('admin.department.store');
     });
 
 // Route::middleware('auth')->group(function () {
