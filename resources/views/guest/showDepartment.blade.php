@@ -22,6 +22,28 @@
 
                 <!-- Phần danh sách cán bộ (Bên phải) -->
                 <div class="bg-white rounded-lg shadow-md p-6">
+                    <!-- Form tìm kiếm -->
+                <form method="GET" action="{{route('guest.searchStaff')}}" class="mb-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div>
+                                <input type="text" name="name" value="{{ request('name') }}"
+                                    placeholder="Tìm theo tên cán bộ"
+                                    class="w-full border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-500">
+                                <input type="hidden" name="codeDepartment" value="{{ $department->id }}">
+                            </div>
+                            <div>
+                                <button type="submit"
+                                        class="px-4 py-2 bg-blue-500 text-black rounded-lg hover:bg-blue-600 transition">
+                                    Tìm kiếm
+                                </button>
+                                
+                                <a href="{{ route('guest.showDepartment', $department->id) }}" 
+                                class="px-4 py-2 bg-blue-500 text-black rounded-lg hover:bg-blue-600 transition">
+                                    Xóa bộ lọc
+                                </a>
+                            </div>
+                        </div>
+                    </form>
                     <h3 class="text-2xl font-semibold text-gray-800 mb-4">Danh sách cán bộ</h3>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

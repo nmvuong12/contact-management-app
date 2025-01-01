@@ -10,10 +10,19 @@ class DepartmentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $name = $request->input('name');
+        $code = $request->input('code');
         //
-        $departments = Department::paginate(6);
+        $departments = Department::query()
+        ->when($name, function ($query, $name) {
+            return $query->where('name', 'like', '%' . $name . '%');
+        })
+        ->when($code, function ($query, $code) {
+            return $query->where('code', 'like', '%' . $code . '%');
+        })
+        ->paginate(6);
 
         return view('guest.index', compact('departments'));
     }
@@ -37,10 +46,16 @@ class DepartmentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function showforGuest(string $id)
+    public function showforGuest(Request $request, string $id)
     {
         //
         $department = Department::findOrFail($id);
+        // $name = $request->input('name');
+        // $staffMembers = $department->staff()->query()
+        //     ->when($name, function ($query, $name) {
+        //         return $query->where('name', 'like', '%' . $name . '%');
+        //     })
+        //     ->paginate(5);
         $staffMembers = $department->staff()->paginate(5);
         return view('guest.showDepartment', compact('department', 'staffMembers'));
     }

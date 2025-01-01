@@ -17,6 +17,7 @@ Route::get('/', function () {
 Route::middleware([CheckRole::class . ':guest'])->group(function () {
     Route::get('/home', [DepartmentController::class, 'index'])->name('guest.index');
     Route::get('/show/{id}', [DepartmentController::class, 'showforGuest'])->name('guest.showDepartment');
+    Route::get('/staff/search', [StaffController::class, 'search'])->name('guest.searchStaff');
     Route::get('/show/staff/{id}', [StaffController::class, 'showforGuest'])->name('guest.showStaff');
     });
 
