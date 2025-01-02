@@ -47,8 +47,8 @@ Route::middleware([CheckRole::class . ':admin'])->group(function () {
     Route::get('/staff', [StaffController::class, 'index'])->name('admin.staff');
     Route::get('/staff/create', [StaffController::class, 'create'])->name('admin.staff.create');
     Route::post('/staff/store', [StaffController::class, 'store'])->name('admin.staff.store');
-    Route::get('/staff/edit/{id}', [StaffController::class, 'edit'])->name('admin.staff.edit');
-    Route::patch('/staff/update/{id}', [StaffController::class, 'update'])->name('admin.staff.update');
+    Route::get('/staff/edit/{id}', [StaffController::class, 'editforAdmin'])->name('admin.staff.edit');
+    Route::patch('/staff/update/{id}', [StaffController::class, 'updateforAdmin'])->name('admin.staff.update');
     Route::get('/staff/show/{id}', [StaffController::class, 'showforAdmin'])->name('admin.staff.show');
     Route::delete('/staff/delete/{id}', [StaffController::class, 'destroy'])->name('admin.staff.delete');
 

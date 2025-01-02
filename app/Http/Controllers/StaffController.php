@@ -110,8 +110,15 @@ class StaffController extends Controller
     {
         //
         $staff = Staff::findOrFail($id);
-
+        
         return view('staff.edit', compact('staff'));
+    }
+    public function editforAdmin(string $id)
+    {
+        //
+        $staff = Staff::findOrFail($id);
+        $departments = Department::all();
+        return view('admin.staff.edit', compact('staff', 'departments'));
     }
 
     /**
@@ -125,6 +132,15 @@ class StaffController extends Controller
         
         $staff->user->update(['name' => $request->name]);
         return redirect()->route('dashboard')->with('success', 'Book updated successfully!');
+    }
+    public function updateforAdmin(Request $request, string $id)
+    {
+        //
+        $staff = Staff::findOrFail($id);
+        $staff->update($request->all());
+        if($staff->user)
+            $staff->user->update(['name' => $request->name]);
+        return redirect()->route('admin.staff')->with('success', 'Cập nhật cán bộ thành công!');
     }
 
     /**

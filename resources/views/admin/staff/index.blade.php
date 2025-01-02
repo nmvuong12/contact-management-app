@@ -72,13 +72,13 @@
                                     <td class="py-2 px-4 border-b text-sm text-gray-600">{{ $staff->department->name }}</td>                                    
                                     <td class="py-2 px-4 border-b text-sm">
                                         <!-- Show Button -->
-                                        <a href="{{ route('admin.department.show', $staff->id) }}"
+                                        <a href="{{ route('admin.staff.show', $staff->id) }}"
                                            class="text-yellow-600 hover:text-yellow-800 px-2 py-1 rounded-md">
                                             Chi tiết
                                         </a>
 
                                         <!-- Edit Button -->
-                                        <a href="{{ route('admin.department.edit', $staff->id) }}"
+                                        <a href="{{ route('admin.staff.edit', $staff->id) }}"
                                            class="text-yellow-600 hover:text-yellow-800 px-2 py-1 rounded-md">
                                             Chỉnh sửa
                                         </a>
