@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
@@ -33,7 +33,7 @@ Route::middleware([CheckRole::class . ':staff'])->group(function () {
     });
 
 Route::middleware([CheckRole::class . ':admin'])->group(function () {
-    Route::get('/home', function () {
+    Route::get('/admin', function () {
         return view('admin.index');
     })->name('admin.index');
     Route::get('/department', [DepartmentController::class, 'indexAdmin'])->name('admin.department');
@@ -43,6 +43,18 @@ Route::middleware([CheckRole::class . ':admin'])->group(function () {
     Route::patch('/department/update/{id}', [DepartmentController::class, 'update'])->name('admin.department.update');
     Route::get('/department/show/{id}', [DepartmentController::class, 'showforAdmin'])->name('admin.department.show');
     Route::delete('/department/delete/{id}', [DepartmentController::class, 'destroy'])->name('admin.department.delete');
+    //
+    Route::get('/staff', [StaffController::class, 'index'])->name('admin.staff');
+    Route::get('/staff/create', [StaffController::class, 'create'])->name('admin.staff.create');
+    Route::post('/staff/store', [StaffController::class, 'store'])->name('admin.staff.store');
+    Route::get('/staff/edit/{id}', [StaffController::class, 'edit'])->name('admin.staff.edit');
+    Route::patch('/staff/update/{id}', [StaffController::class, 'update'])->name('admin.staff.update');
+    Route::get('/staff/show/{id}', [StaffController::class, 'showforAdmin'])->name('admin.staff.show');
+    Route::delete('/staff/delete/{id}', [StaffController::class, 'destroy'])->name('admin.staff.delete');
+
+    //
+
+
     });
 
 // Route::middleware('auth')->group(function () {

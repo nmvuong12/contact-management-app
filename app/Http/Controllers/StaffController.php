@@ -12,9 +12,25 @@ class StaffController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //       
+        //     
+        $name = $request->input('name');
+        $nameDepartment = $request->input('nameDepartment');
+
+        $department_ids = Department::where('name', 'like', '%' . $nameDepartment . '%')->pluck('id');
+        //
+        $staffs = Staff::query()
+        ->when($name, function ($query, $name) {
+            return $query->where('name', 'like', '%' . $name . '%');
+        })
+        ->when($department_ids, function ($query) use ($department_ids) {
+            return $query->whereIn('department_id', $department_ids);
+        })
+        ->orderBy('id', 'desc')
+        ->paginate(6);
+
+        return view('admin.staff.index', compact('staffs'));  
     }
 
     /**
@@ -23,6 +39,9 @@ class StaffController extends Controller
     public function create()
     {
         //
+        $departments = Department::all();
+
+        return view('admin.staff.create', compact('departments'));
     }
 
     /**
@@ -31,6 +50,17 @@ class StaffController extends Controller
     public function store(Request $request)
     {
         //
+        $staff = Staff::create([
+            'name'=> $request->name,
+            'title'=> $request->title,
+            'academic_rank'=> $request->academic_rank,
+            'degree'=> $request->degree,
+            'phone'=> $request->phone,
+            'email'=> $request->email,
+            'department_id'=> $request->department_id,
+        ]);
+
+        return redirect()->route('admin.staff')->with('success', 'Thêm cán bộ thành công!');
     }
 
     /**
@@ -71,6 +101,10 @@ class StaffController extends Controller
         $department = $staff->department;
 
         return view('dashboard', compact('staff', 'department'));
+    }
+    public function showforAdmin()
+    {
+        
     }
     public function edit(string $id)
     {

@@ -14,7 +14,9 @@ class Staff extends Model
         'degree',
         'phone',
         'email',
+        'department_id',
     ];
+    public $timestamps = false;
     public function user()
     {
         return $this->hasOne(User::class);
