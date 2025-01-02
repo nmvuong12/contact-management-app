@@ -102,9 +102,11 @@ class StaffController extends Controller
 
         return view('dashboard', compact('staff', 'department'));
     }
-    public function showforAdmin()
+    public function showforAdmin($id)
     {
-        
+        $staff = Staff::findOrFail($id);
+
+        return view('admin.staff.show', compact('staff'));
     }
     public function edit(string $id)
     {
@@ -149,5 +151,10 @@ class StaffController extends Controller
     public function destroy(string $id)
     {
         //
+        $staff = Staff::findOrFail($id);
+
+        $staff->delete();
+
+        return redirect()->route('admin.staff')->with('success', 'Xóa thành công!');
     }
 }

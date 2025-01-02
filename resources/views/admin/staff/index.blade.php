@@ -109,16 +109,16 @@
                                             </div>
                                             <!-- Modal body -->
                                             <div class="p-4 md:p-5">
-                                                <form class="space-y-4" action="{{ route('admin.department.delete', $staff->id) }}" method="POST">
+                                                <form class="space-y-4" action="{{ route('admin.staff.delete', $staff->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <p><strong>Bạn có chắc chắn xóa đơn vị: </strong>{{$staff->name}}</p>
-                                                    <p><strong>Mã đơn vị: </strong>{{$staff->code}}</p>
+                                                    <p><strong>Bạn có chắc chắn xóa giảng viên: </strong>{{$staff->name}}</p>
+                                                    <p><strong>Thuộc đơn vị: </strong>{{ $staff->department->name }} ({{$staff->department->code}})</p>
                                                     <button type="submit" class="text-red-600 hover:text-red-800 px-2 py-1 rounded-md">
                                                         Xác nhận
                                                     </button>
                                                 </form>
-                                                <a href="{{ route('admin.department') }}" class="inline-block bg-blue-600 text-black px-4 py-2 rounded-md hover:bg-blue-700">
+                                                <a href="{{ route('admin.staff') }}" class="inline-block bg-blue-600 text-black px-4 py-2 rounded-md hover:bg-blue-700">
                                                     Hủy bỏ
                                                 </a>
                                             </div>
