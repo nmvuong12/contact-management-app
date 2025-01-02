@@ -39,7 +39,7 @@
             <!-- Card container -->
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <h3 class="text-lg font-semibold mb-4">Danh sách đơn vị</h3>
+                    <h3 class="text-lg font-semibold mb-4">Danh sách cán bộ</h3>
                     <div class="mb-4 flex justify-between items-center">
                         <a href="{{ route('admin.index') }}" class="inline-block bg-blue-600 text-black px-4 py-2 rounded-md hover:bg-blue-700">
                             <-- Về trang chủ

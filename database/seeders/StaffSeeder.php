@@ -3,35 +3,41 @@
 namespace Database\Seeders;
 
 use App\Models\Department;
-use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use Faker\Factory as Faker;
 use App\Models\Staff;
+use Illuminate\Database\Seeder;
+use Faker\Factory as Faker;
 
 class StaffSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
-        $faker = Faker::create('vi_VN'); // Sử dụng Faker cho ngôn ngữ tiếng Việt
+        $faker = Faker::create('vi_VN'); // Sử dụng Faker với ngôn ngữ tiếng Việt
 
-        // Giả sử bạn có bảng departments đã được tạo và có dữ liệu
-        $departmentIds = Department::pluck('id')->toArray(); // Lấy tất cả department_id từ bảng departments
+        // Lấy tất cả department_id từ bảng departments
+        $departmentIds = Department::pluck('id')->toArray();
 
-        // Tạo 20 nhân viên
+        // Danh sách chức danh
+        $titles = ['Giám đốc', 'Hiệu trưởng', 'Hiệu phó', 'Giảng viên', 'Trưởng khoa', 'Phó trưởng khoa', 'Cán bộ hành chính'];
+
+        // Danh sách học hàm
+        $academicRanks = ['Giáo sư', 'Phó giáo sư', 'Nghiên cứu viên'];
+
+        // Danh sách học vị
+        $degrees = ['Tiến sĩ', 'Thạc sĩ', 'Cử nhân'];
+
+        // Tạo 100 nhân viên
         for ($i = 0; $i < 100; $i++) {
             Staff::create([
-                'name' => $faker->name, // Tên nhân viên
-                'title' => $faker->jobTitle, // Chức danh (nullable)
-                'academic_rank' => $faker->word, // Học hàm (nullable)
-                'degree' => $faker->word, // Học vị (nullable)
-                'phone' => $faker->phoneNumber, // Số điện thoại (nullable)
-                'email' => $faker->email, // Email (nullable)
-                'department_id' => $faker->randomElement($departmentIds), // Khóa ngoại liên kết với bảng departments
+                'name' => $faker->lastName . ' ' . $faker->firstName, // Tên người Việt thực tế
+                'title' => $faker->randomElement($titles), // Chức danh
+                'academic_rank' => $faker->optional()->randomElement($academicRanks), // Học hàm (nullable)
+                'degree' => $faker->randomElement($degrees), // Học vị
+                'phone' => $faker->unique()->numerify('09########'), // Số điện thoại
+                'email' => $faker->unique()->safeEmail, // Email
+                'department_id' => $faker->randomElement($departmentIds), // Khóa ngoại
             ]);
         }
     }

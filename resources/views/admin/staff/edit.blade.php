@@ -1,7 +1,7 @@
 <x-app-layout>
     <section class="bg-gray-50 py-8 px-4 sm:py-12 sm:px-6 lg:px-8">
         <div class="max-w-3xl mx-auto bg-white shadow-md rounded-lg p-6 sm:p-8">
-            <h2 class="text-2xl font-bold text-gray-800 mb-6">{{ __('Thêm đơn vị') }}</h2>
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">{{ __('Chỉnh sửa thông tin cán bộ') }}</h2>
 
             <form method="post" action="{{route('admin.staff.update', $staff->id)}}" class="space-y-6">
                 @csrf
@@ -43,7 +43,6 @@
                         type="text" 
                         :value="old('academic_rank', $staff->academic_rank)" 
                         class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" 
-                        required 
                         autofocus 
                         autocomplete="academic_rank" 
                     />
@@ -116,7 +115,7 @@
 
                 <!-- Nút lưu -->
                 <div class="flex items-center justify-between">
-                        <a href="{{ route('admin.department') }}" class="inline-block bg-blue-600 text-black px-4 py-2 rounded-md hover:bg-blue-700">
+                        <a href="{{ route('admin.staff') }}" class="inline-block bg-blue-600 text-black px-4 py-2 rounded-md hover:bg-blue-700">
                             <-- Về danh sách
                         </a>
                     <x-primary-button class="bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500">

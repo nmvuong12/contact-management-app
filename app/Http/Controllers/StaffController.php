@@ -79,18 +79,21 @@ class StaffController extends Controller
         $name = $request->input('name');
         $codeDepartment = $request->input('codeDepartment');
 
+        // Tìm đơn vị dựa trên codeDepartment
         $department = Department::findOrFail($codeDepartment);
-        $staffMembers = Staff::query()
-        ->when($name, function ($query, $name) {
-            return $query->where('name', 'like', '%' . $name . '%');
-        })
-        ->when($codeDepartment, function ($query, $department_id) {
-            return $query->where('department_id', 'like', '%' . $department_id . '%');
-        })
-        ->paginate(6);
 
+        // Lọc nhân viên theo `department_id` và `name`
+        $staffMembers = Staff::query()
+            ->where('department_id', $department->id) // Luôn giới hạn trong đơn vị
+            ->when($name, function ($query, $name) {
+                return $query->where('name', 'like', '%' . $name . '%'); // Tìm theo tên
+            })
+            ->paginate(6);
+
+        // Trả về view
         return view('guest.showDepartment', compact('department', 'staffMembers'));
     }
+
     /**
      * Show the form for editing the specified resource.
      */
@@ -142,7 +145,7 @@ class StaffController extends Controller
         $staff->update($request->all());
         if($staff->user)
             $staff->user->update(['name' => $request->name]);
-        return redirect()->route('admin.staff')->with('success', 'Cập nhật cán bộ thành công!');
+        return redirect()->route('admin.staff.show', $staff->id)->with('success', 'Cập nhật cán bộ thành công!');
     }
 
     /**

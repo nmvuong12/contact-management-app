@@ -46,7 +46,6 @@
                         type="text" 
                         class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" 
                         :value="old('academic_rank', $staff->academic_rank)" 
-                        required 
                     />
                     <x-input-error class="mt-2" :messages="$errors->get('academic_rank')" />
                 </div>
@@ -96,6 +95,9 @@
 
                 <!-- Nút lưu -->
                 <div class="flex items-center justify-between">
+                        <a href="{{ route('dashboard') }}" class="inline-block bg-blue-600 text-black px-4 py-2 rounded-md hover:bg-blue-700">
+                            <-- Về trang chủ
+                        </a>
                     <x-primary-button class="bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500">
                         {{ __('Lưu thay đổi') }}
                     </x-primary-button>

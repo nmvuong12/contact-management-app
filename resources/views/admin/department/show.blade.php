@@ -21,7 +21,7 @@
                     
                     <!-- Nút quay lại danh sách cán bộ -->
                     <div class="mt-6 text-center">
-                        <a href="{{ url()->previous() }}" 
+                        <a href="{{ route('admin.department') }}" 
                         class="inline-block bg-green text-black px-4 py-2 rounded-lg hover:bg-green z-10">
                             Quay lại danh sách đơn vị
                         </a>

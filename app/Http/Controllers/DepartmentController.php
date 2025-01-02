@@ -129,7 +129,7 @@ class DepartmentController extends Controller
 
         ]);
 
-        return redirect()->route('admin.department')->with('success', 'Cập nhật thành công!');
+        return redirect()->route('admin.department.show', $department->id)->with('success', 'Cập nhật thành công!');
     }
 
     /**
